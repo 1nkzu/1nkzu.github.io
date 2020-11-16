@@ -10,8 +10,9 @@ body {
 }
 
 iframe {
-  width: 500px;
-  height: 500px;
+  width: 1500px;
+  height: 1500px;
+  overflow: scroll;
 }
 
 .container {
