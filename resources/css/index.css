@@ -9,6 +9,11 @@ body {
   background-image: linear-gradient(to right, #344977, white 10%, #344977);
 }
 
+iframe {
+  width: 500px;
+  height: 500px;
+}
+
 .container {
   margin: 0 auto;
   max-width: 100%; 
@@ -63,6 +68,8 @@ nav {
   background: #141f2c;
   height: 80px; 
   width: 100%;
+  position: fixed;
+  z-index: 2;
 }
 
 nav ul {
