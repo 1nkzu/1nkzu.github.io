@@ -28,3 +28,16 @@ function showVisitorCode(visitorCodeResponse) {
 }
 
 cobrowse.onclick = showVisitorCode('12345');
+
+
+// create gliaLink
+var gliaCoBrowsingLink = document.createElement('a');
+gliaCoBrowsingLink.className = 'button omnibrowse-code-button';
+gliaCoBrowsingLink.setAttribute('data-role', 'button');
+gliaCoBrowsingLink.setAttribute('data-sm-show-media-selection-on', 'click');
+gliaCoBrowsingLink.href = 'javascript:void(0);';
+gliaCoBrowsingLink.innerText = 'CoBrowse';
+
+// insert gliaLink
+document.querySelector('div.modal-content').append(gliaCoBrowsingLink);
+document.querySelector('.omnibrowse-code-button').addEventListener("click", showVisitorCode);
