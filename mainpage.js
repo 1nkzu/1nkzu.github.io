@@ -1,19 +1,30 @@
-let learnMore = document.getElementById("cobrowse");
+let cobrowse = document.getElementById("cobrowse");
 
-function getVisitorCode(){
+function getCode(){
     console.log("Getting visitor code.");
     sm.getApi({version: 'v1'}).then(function(salemove) {
         salemove.omnibrowse.getVisitorCode().then(showVisitorCode);
-      });
+    });
 }
 
-  function showVisitorCode(visitorCodeResponse) {
-    var visitorCodeContainer = document.createElement('div');
-    visitorCodeContainer.textContent = visitorCodeResponse.code;
-    document.body.appendChild(visitorCodeContainer);
-    setTimeout(function() {
-      document.body.removeChild(visitorCodeContainer);
-    }, visitorCodeResponse.validDuration);
-  }
+function showVisitorCode(visitorCodeResponse) {
+    var visitorCodeContainer = document.getElementById('codeModal');
 
-learnMore.onclick = getVisitorCode;
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    visitorCodeContainer.innerHTML = visitorCodeResponse;
+    visitorCodeContainer.style.display = "none";
+
+    span.onclick = function() {
+        visitorCodeContainer.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == visitorCodeContainer) {
+          visitorCodeContainer.style.display = "none";
+        }
+    }
+}
+
+cobrowse.onclick = showVisitorCode('12345');
