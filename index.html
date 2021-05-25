@@ -8,24 +8,26 @@
     <link href="./resources/css/index.css" type="text/css" rel="stylesheet">
     <!-- End Google Tag Manager -->
     <script src="resources/js/mainpage.js" async></script>
+    <script src="https://api.salemove.com/salemove_integration.js?site_id=387d7963-6413-4cd7-ab66-0f576d63fdb4"></script>
     <script> 
         function addScript(siteId){
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.async = true;
             script.src = 'https://api.glia.com/salemove_integration.js' + '?site_id=' + siteId;
-            document.head.appendChild(script);
-            console.log('Script loaded for ' + siteId);
+            console.log('Script tag created ' + siteId);
+            return script;
         }
 
-        function replacejsfile(oldfilesrc, newfilesrc, filetype){
-            var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none" //determine element type to create nodelist using
-            var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none" //determine corresponding attribute to test for
-            var allsuspects=document.getElementsByTagName(targetelement)
-            for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
-                if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(oldfilename)!=-1){
-                    var newelement=createjscssfile(newfilename, filetype)
-                    allsuspects[i].parentNode.replaceChild(newelement, allsuspects[i])
+        function replaceScript(oldsiteId, newsiteId){
+            var allScriptTags = document.getElementsByTagName('script')
+            //console.log(allScriptTags);
+            for (var i = 0; i < allScriptTags.length-1; i++){ //search backwards within nodelist for matching elements to remove
+                console.log(allScriptTags[i].src);
+                if (allScriptTags[i].src.includes(oldsiteId)){
+                    var newScript = addScript(newsiteId);
+                    allScriptTags[i].parentNode.replaceChild(newScript, allScriptTags[i]);
+                    console.log(oldsiteId + ' replaced with ' + newsiteId);
                 }
             }
         }
@@ -50,8 +52,8 @@
         <div class="container">
             <h1>Inga's magnificent project</h1>
             <p>Don't know who Inga is?</p>
-            <a class="btn" id="prodinga" href="#" onclick="addScript('0beade76-8c77-40f7-bd1e-ccc72116f0c7')">Prod Inga script</a>
-            <a class="btn" id="wonderland" href="#" onclick="addScript('387d7963-6413-4cd7-ab66-0f576d63fdb4')">Wonderland script</a>
+            <a class="btn" id="prodinga" href="#" onclick="replaceScript('387d7963-6413-4cd7-ab66-0f576d63fdb4', '0beade76-8c77-40f7-bd1e-ccc72116f0c7')">Prod Inga script</a>
+            <a class="btn" id="wonderland" href="#" onclick="replaceScript('0beade76-8c77-40f7-bd1e-ccc72116f0c7', '387d7963-6413-4cd7-ab66-0f576d63fdb4')">Wonderland script</a>
         </div>
         
     </header>
