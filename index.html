@@ -6,26 +6,30 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,100' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
     <link href="./resources/css/index.css" type="text/css" rel="stylesheet">
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PMM7MM9');
-    </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-174030165-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-174030165-1');
-        ga('create', 'UA-174030165-1');
-    </script>
-
     <!-- End Google Tag Manager -->
-    <script src="mainpage.js" async></script>
-    <script async type="text/javascript" src="https://api.glia.com/salemove_integration.js"></script>
+    <script src="resources/js/mainpage.js" async></script>
+    <script> 
+        function addScript(siteId){
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.async = true;
+            script.src = 'https://api.glia.com/salemove_integration.js' + '?site_id=' + siteId;
+            document.head.appendChild(script);
+            console.log('Script loaded for ' + siteId);
+        }
+
+        function replacejsfile(oldfilesrc, newfilesrc, filetype){
+            var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none" //determine element type to create nodelist using
+            var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none" //determine corresponding attribute to test for
+            var allsuspects=document.getElementsByTagName(targetelement)
+            for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
+                if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(oldfilename)!=-1){
+                    var newelement=createjscssfile(newfilename, filetype)
+                    allsuspects[i].parentNode.replaceChild(newelement, allsuspects[i])
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -46,7 +50,8 @@
         <div class="container">
             <h1>Inga's magnificent project</h1>
             <p>Don't know who Inga is?</p>
-            <a class="btn" id="learn" href="#">Learn More</a>
+            <a class="btn" id="prodinga" href="#" onclick="addScript('0beade76-8c77-40f7-bd1e-ccc72116f0c7')">Prod Inga script</a>
+            <a class="btn" id="wonderland" href="#" onclick="addScript('387d7963-6413-4cd7-ab66-0f576d63fdb4')">Wonderland script</a>
         </div>
         
     </header>
